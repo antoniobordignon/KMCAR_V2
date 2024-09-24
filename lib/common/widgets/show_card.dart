@@ -39,7 +39,7 @@ class ShowCard extends StatelessWidget {
                 FilledButton(
                   child: const Text("sim"),
                   onPressed: () async {
-                    // await db.deleteTrip(trip.id);
+                    await db.deleteTrip(trip.id);
                     if (context.mounted) {
                       Navigator.pushReplacementNamed(
                         context,
