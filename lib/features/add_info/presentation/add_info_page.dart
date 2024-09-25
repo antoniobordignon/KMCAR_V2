@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kmcar/common/constants/routes.dart';
 import 'package:kmcar/common/widgets/add_button.dart';
 import 'package:kmcar/common/widgets/input_text.dart';
 import 'package:kmcar/common/constants/text_style.dart';

@@ -1,9 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:kmcar/common/constants/routes.dart';
 import 'package:kmcar/features/add_info/data/orm/model.dart';
+import 'package:kmcar/features/home/presentation/home_page.dart';
 import 'package:kmcar/main.dart';
+import 'package:provider/provider.dart';
 
 class ShowCard extends StatelessWidget {
   final Trip trip;
@@ -22,10 +23,10 @@ class ShowCard extends StatelessWidget {
           context: context,
           barrierDismissible: true,
           barrierLabel: 'DeleteImagemDialog',
-          pageBuilder: (context, animation, secondaryAnimation) {
+          pageBuilder: (_, animation, secondaryAnimation) {
             return Container();
           },
-          transitionBuilder: (context, a1, a2, child) {
+          transitionBuilder: (_, a1, a2, child) {
             return AlertDialog(
               title: const Text("Atenção"),
               content: const Text("Você realmente quer deletar o registro?"),
@@ -40,12 +41,10 @@ class ShowCard extends StatelessWidget {
                   child: const Text("sim"),
                   onPressed: () async {
                     await db.deleteTrip(trip.id);
-                    if (context.mounted) {
-                      Navigator.pushReplacementNamed(
-                        context,
-                        NamedRoute.home,
-                      );
-                    }
+                    if (!context.mounted) return;
+                      await context.read<TripNotifier>().loadTrips();
+                      if(!context.mounted) return;
+                        Navigator.pop(context);
                   },
                 ),
               ],
